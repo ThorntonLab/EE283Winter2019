@@ -1,0 +1,77 @@
+Publication-quality graphics
+========================================================
+author: 
+date: 
+autosize: true
+
+Intro
+========================================================
+
+* This is a big topic!
+* We are only covering programmable graphics, namely 
+those that can be made directly from data files.
+
+Writing
+=======================================================
+
+* Success in science means being a professional writer.
+* A key part of this is effective visualization of results.
+* This is time-consuming work.
+
+Putting papers together
+========================================================
+
+* Write Methods to break writer's block
+* Make figures
+* Write about the figures
+* Write Discussion, Intro, Abstract
+* Reread it all and write title
+
+History of plotting in R
+=======================================================
+
+* Base R lets you do pretty much anything, but it can be quite hard.
+* `grid` and `gridExtra` came along to make various layout tasks easier
+* `lattice` came along to allow "trellis" plots
+* `ggplot2` tries to simplify the grammar, unify previous disparate concepts, in order to let you do EDA faster.
+
+Setup
+======================================================
+
+```{r}
+library(ggplot2)
+library(datasets)
+head(mtcars)
+```
+
+Let's list what is wrong with this plot
+==============================================================
+
+```{r,echo=F,fig.width=8,fig.height=8,fig.align='center'}
+mg <- ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point()
+mg + facet_grid(vs + am ~ gear)
+```
+
+Let's list what is wrong with this plot
+==============================================================
+
+```{r,echo=F,fig.width=7,fig.height=7,fig.align='center'}
+ds <- ggplot(mpg, aes(displ, hwy, colour = class)) +
+  geom_point() +
+  geom_smooth()
+ds
+```
+
+Colors
+========================================
+
+* Avoid plots that color-blind people cannot see
+* Use shapes, line types, etc.
+* [here](http://www.cookbook-r.com/Graphs/Colors_(ggplot2\))
+* [viridis](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html) is something you  should know!
+
+Resources
+=============================================
+
+* [color blindness simulator](https://github.com/clauswilke/colorblindr)
+* [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/), which will be published by O'Reilly soon.  The author is and evolutionary biologist and chair of Integrative Biology at UT Austin.

@@ -4,6 +4,7 @@
 
 * [Week 1 notes](Week1Lecture.md)
 * [Week 2 notes](Intro2Python.html)
+* [Week 2 notes](Plotting1.md)
 
 ## Assignments
 
