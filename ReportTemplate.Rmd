@@ -1,0 +1,20 @@
+---
+title: "ReportTemplate"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(ggplot2)
+library(readr)
+```
+
+# Intro
+
+Let's do a report!
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+data = read_delim(infile, delim=" ") %>% group_by(experiment) %>% summarise(mean_result = mean(result))
+knitr::kable(data)
+```
