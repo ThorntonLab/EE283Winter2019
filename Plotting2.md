@@ -63,7 +63,7 @@ More complex example
 ================================
 
 ```r
-plot_grid(plot.mpg, plot.diamonds, plot.diamonds, plot.mpg, labels=c("A","B","C","D"),ncol=2,rel_heights = c(1,0.5,0.5))
+plot_grid(plot.mpg, plot.diamonds, plot.diamonds, plot.mpg, labels=c("A","B","C","D"),ncol=2,rel_heights = c(0.5,1))
 ```
 
 ![plot of chunk unnamed-chunk-5](Plotting2-figure/unnamed-chunk-5-1.png)
@@ -165,3 +165,66 @@ More generally
 ======================================================
 
 * Read more about [pandoc](https://pandoc.org) and let me know if you find out anything!
+
+Plotting in Python
+====================================================
+
+```r
+library(reticulate)
+use_python("/usr/bin/python3")
+```
+
+Matplotlib
+==========================================
+
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+t = np.arange(0.,2.,0.01)
+s = 1 + np.sin(2*np.pi*t)
+plt.plot(t,s)
+plt.grid(True)
+plt.show()
+```
+
+The output
+===============================================
+![plot of chunk unnamed-chunk-12](Plotting2-figure/unnamed-chunk-12-1.png)
+
+Seaborn
+==========================================================
+
+
+```python
+import seaborn as sns
+tips = sns.load_dataset("tips")
+g = sns.FacetGrid(tips, col="time")
+g.map(plt.hist, "tip");
+plt.show()
+```
+
+![plot of chunk unnamed-chunk-13](Plotting2-figure/unnamed-chunk-13-1.png)
+
+Example 2
+=================================================
+
+```python
+g = sns.FacetGrid(tips, col="sex", hue="smoker")
+g.map(plt.scatter, "total_bill", "tip", alpha=.7)
+g.add_legend();
+plt.show()
+```
+
+![plot of chunk unnamed-chunk-14](Plotting2-figure/unnamed-chunk-14-1.png)
+
+Python is GREAT for adding text!
+===================================================
+
+```python
+for ax in g.axes.flat:
+  ax.set_title(r'$\Theta = \frac{\Gamma}{\sum_{i=1}{10}}$')
+plt.show()
+```
+
+![plot of chunk unnamed-chunk-15](Plotting2-figure/unnamed-chunk-15-1.png)
