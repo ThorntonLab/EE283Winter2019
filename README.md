@@ -17,6 +17,7 @@
 
 * [Week 1](Lab1.md).  The slides/nodes are [here](tidyverse.md).
 * [Week 2](Lab2.md).  
+* [Week 4](PlottingLab2.html)
 
 ## Additional materials
 
