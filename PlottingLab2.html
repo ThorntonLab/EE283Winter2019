@@ -450,15 +450,15 @@ x = data.frame(x=rnorm(100),y=rnorm(100))
 y = pd$DataFrame(r_to_py(x))
 z = py_to_r(y$describe())
 print(z)</code></pre>
-<pre><code>##                  x           y
-## count 100.00000000 100.0000000
-## mean    0.07366940  -0.1388054
-## std     0.93894380   1.0678994
-## min    -1.75958125  -2.2864381
-## 25%    -0.54829041  -0.9267793
-## 50%     0.05036428  -0.2909507
-## 75%     0.73914271   0.5454562
-## max     2.17468705   3.0514253</code></pre>
+<pre><code>##                  x            y
+## count 100.00000000 100.00000000
+## mean   -0.06505064   0.04455994
+## std     0.99749908   1.08048159
+## min    -2.06236597  -2.94265941
+## 25%    -0.66903090  -0.69994018
+## 50%    -0.14347534   0.03733114
+## 75%     0.47808288   0.75150887
+## max     3.16450563   2.87450791</code></pre>
 <p>What happened there? Cool, right?</p>
 <p>Does it work for you if you get rid of <code>convert=F</code> and the <code>r_to_py</code> and <code>py_to_r</code> stuff? It doesn’t for me, and I am not sure why…</p>
 <div id="what-about-this" class="section level2">
@@ -489,10 +489,13 @@ x = pd.read_csv(&quot;data2.txt&quot;,sep=&quot; &quot;)</code></pre>
 <p>For many of you, it may not be immediately obvious why you’d want to do this. If you can just use the <code>tidyverse</code> for everything, why not? There are several reasons that may or may not apply to you:</p>
 <ol style="list-style-type: decimal">
 <li>While R dominates in terms of linear modeling of data, Python is the current favorite for machine learnings. So, you may need to get results from an ML algorithm into R for some sweet <code>ggplot</code>ing.</li>
-<li>More generally, there are R packages that are better than Python packages, and vice-versa, so being able to integrate both worlds is handy. # Python and GridSpec</li>
+<li>More generally, there are R packages that are better than Python packages, and vice-versa, so being able to integrate both worlds is handy.</li>
 </ol>
-<p>Can you recreate a plot similar to what you did at the beginning using gridspec?</p>
 </div>
+</div>
+<div id="python-and-gridspec" class="section level1">
+<h1>Python and GridSpec</h1>
+<p>Can you recreate a plot similar to what you did at the beginning using gridspec?</p>
 </div>
 
 
