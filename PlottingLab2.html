@@ -445,20 +445,22 @@ done</code></pre>
 <pre class="r"><code>library(reticulate)
 use_python(&quot;/usr/bin/python3&quot;)</code></pre>
 <p>Test that this works:</p>
-<pre class="r"><code>pd &lt;- import(&quot;pandas&quot;, convert=F)
+<pre class="r"><code>pd &lt;- import(&quot;pandas&quot;, convert=T)
 x = data.frame(x=rnorm(100),y=rnorm(100))
-y = pd$DataFrame(r_to_py(x))
-z = py_to_r(y$describe())
+y = pd$DataFrame(x)
+z = pd$DataFrame$describe(y)
+# y = pd$DataFrame(r_to_py(x))
+# z = py_to_r(y$describe())
 print(z)</code></pre>
-<pre><code>##                  x            y
-## count 100.00000000 100.00000000
-## mean   -0.06505064   0.04455994
-## std     0.99749908   1.08048159
-## min    -2.06236597  -2.94265941
-## 25%    -0.66903090  -0.69994018
-## 50%    -0.14347534   0.03733114
-## 75%     0.47808288   0.75150887
-## max     3.16450563   2.87450791</code></pre>
+<pre><code>##                  x           y
+## count 100.00000000 100.0000000
+## mean   -0.02318692   0.1621779
+## std     1.00624121   0.9585548
+## min    -2.64639346  -2.0733519
+## 25%    -0.62361132  -0.4312648
+## 50%    -0.09639635   0.0972189
+## 75%     0.58611265   0.7649330
+## max     2.33106988   2.3596377</code></pre>
 <p>What happened there? Cool, right?</p>
 <p>Does it work for you if you get rid of <code>convert=F</code> and the <code>r_to_py</code> and <code>py_to_r</code> stuff? It doesn’t for me, and I am not sure why…</p>
 <div id="what-about-this" class="section level2">
@@ -473,7 +475,8 @@ B 1.35125125
 B 2.1251251253
 C 1.1</code></pre>
 <pre class="python"><code>import pandas as pd
-x = pd.read_csv(&quot;data2.txt&quot;,sep=&quot; &quot;)</code></pre>
+x = pd.read_csv(&quot;data2.txt&quot;,sep=&quot; &quot;)
+x.head()</code></pre>
 <p>Execute the following Python code in an Rmd file:</p>
 <pre class="r"><code>py$x</code></pre>
 <pre><code>##   experiment    result
