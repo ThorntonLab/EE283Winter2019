@@ -1,0 +1,116 @@
+---
+title: "Conda Lab"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+This lab is a bit more free-form than others.  The point is to get you familiar with conda environments.
+
+## Installation
+
+Install a miniconda 3 environment for your system.
+
+## Environments
+
+1. Create a new environment based around `pip`:
+
+```
+conda create -n test pip
+```
+
+2. Activate the new environment:
+
+```
+source activate test
+```
+
+3. Install numpy using pip:
+
+```
+pip install numpy
+```
+
+4. Now, look at the packages in the environment:
+
+```
+conda env export -n test
+```
+
+What do you see about numpy?  What is different from the other packages?
+
+5. Decactivate your new environment, delete it, and confirm that it is deleted.
+
+## Migrating environments
+
+Execute the following command, which lists all of your current environments:
+
+```
+conda env list
+```
+
+Now, execute this loop, which will just spit out the names of your environments on their own:
+
+```
+for i in $(conda env list | cut -d" " -f1 | grep -v "^\#")
+do
+  echo $i
+done
+```
+
+How would you modify the above loop to automate dumping all of your environments to YAML files?
+
+## Conda on HPC
+
+This is optional.  If you have a conda installation on HPC, and it is in your home directory, now would be a great time to fix that, and make it a module!
+
+**HINT**: the loop from the preceding section will come in handy!
+
+# Advanced stuff that may help you out at some point
+
+## Installing from source into an environment on HPC
+
+Note: and "old" or "out of date" compiler does not mean the same thing as it does for other software tools.  Rather, it means that they only support the language standards available when they came out.  Thus, if you are trying to compile something requiring the `c99`, `c11`, `c++14`, `c++17`, etc., standards, you will be out of luck.
+
+### Avoid the HPC compilers
+
+Never, under any circumstance, use any compiler module on HPC, nor the default/standard compiler on the system, to install software into a conda environment.  This is a recipe for disaster/frustration.
+
+### Compilers
+
+Make sure you have GCC installed from conda.  You have options.  For example:
+
+1. The `gcc` package is gcc 4.8.5.  This is quite old.  It does not support C++ standards newer than C++11.  This package contains both `C` and `C++` compilers (`gcc` and `g++`, respectively).`
+2. The `gcc_linux-64` has version 7.3 and 8.2 available.  `conda-forge` and `bioconda` are based on 7.3, so use that. The C++ compiler package is `gxx_linux-64`
+
+When installing via option 2, the compilers have "weird" names.  See [here](https://www.anaconda.com/utilizing-the-new-compilers-in-anaconda-distribution-5/) for details.  For example, the C and C++ compiler command names are `x86_64-conda_cos6-linux-gnu-cc` and `x86_64-conda_cos6-linux-gnu-c++`, respectively.  However, these are stored in the shell variables `CC` and `CXX`, respectively, which is the idiomatic/expected way to refer to the compilers.  This is important, because "correct" build systems refer to compilers via their shell variable aliases instead of to their direct names.
+
+### Specific HPC annoyances
+
+Historically, the `CC` and `CXX` variables on HPC have been aliased to `MPI`-aware versions of GCC that were getting rather out of date.
+
+The way to make sure your conda compilers are used is to "nuke all the things":
+
+```
+# Remove ALL modules from your user's environment
+module purge
+```
+
+Then, bring your conda module to life:
+
+```
+module load me/anaconda
+```
+
+Then, once you have all your stuff installed, restore some sensible environment:
+
+```
+module purge
+module load Cluster_Defaults GE
+```
+
+And now you can `qsub`, etc., again.
